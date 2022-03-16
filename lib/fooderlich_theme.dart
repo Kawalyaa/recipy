@@ -58,24 +58,14 @@ class FooderlichTheme {
     ),
   );
 
-  static TimePickerThemeData timePickerThemeData =
-      const TimePickerThemeData().copyWith(
-    backgroundColor: Colors.grey[800],
-    dialHandColor: Colors.black,
-    dialTextColor: Colors.white,
-    entryModeIconColor: Colors.white,
-    dayPeriodColor: Colors.grey[700],
-    hourMinuteColor: Colors.grey[700],
-  );
-
   static ThemeData light() {
     return ThemeData(
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(
-        primary: Colors.black,
-        brightness: Brightness.light,
-      ),
+      brightness: Brightness.light,
       checkboxTheme: CheckboxThemeData(
-          fillColor: MaterialStateColor.resolveWith((states) => Colors.black)),
+        fillColor: MaterialStateColor.resolveWith((states) {
+          return Colors.black;
+        }),
+      ),
       appBarTheme: const AppBarTheme(
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
@@ -93,13 +83,7 @@ class FooderlichTheme {
 
   static ThemeData dark() {
     return ThemeData(
-      timePickerTheme: timePickerThemeData,
-      checkboxTheme: CheckboxThemeData(
-          fillColor: MaterialStateColor.resolveWith((states) => Colors.green)),
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(
-          primary: Colors.white,
-          onPrimary: Colors.black,
-          brightness: Brightness.dark),
+      brightness: Brightness.dark,
       appBarTheme: AppBarTheme(
         foregroundColor: Colors.white,
         backgroundColor: Colors.grey[900],

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../models/models.dart';
 
 class SplashScreen extends StatefulWidget {
-  // TODO: SplashScreen MaterialPage Helper
   static MaterialPage page() {
     return MaterialPage(
       name: FooderlichPages.splashPath,
@@ -31,12 +31,12 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Image(
+          children: [
+            const Image(
               height: 200,
               image: AssetImage('assets/fooderlich_assets/rw_logo.png'),
             ),
-            Text('Initializing...'),
+            const Text('Initializing...')
           ],
         ),
       ),

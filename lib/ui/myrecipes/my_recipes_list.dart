@@ -37,63 +37,56 @@ class _MyRecipesListState extends State<MyRecipesList> {
           return SizedBox(
             height: 100,
             child: Slidable(
-              // actionExtentRatio: 0.25,
-              child: Card(
-                elevation: 1.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                startActionPane: const ActionPane(
+                  motion: ScrollMotion(),
+                  children: [
+                    SlidableAction(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                      icon: Icons.delete,
+                      // TODO 7
+                      onPressed: null,
+                      label: 'Delete',
+                    ),
+                  ],
                 ),
-                color: Colors.white,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      leading: CachedNetworkImage(
-                          // TODO 5
-                          imageUrl:
-                              'http://www.seriouseats.com/recipes/2011/12/chicken-vesuvio-recipe.html',
-                          height: 120,
-                          width: 60,
-                          fit: BoxFit.cover),
-                      // TODO 6
-                      title: const Text('Chicken Vesuvio'),
+                endActionPane: const ActionPane(
+                  motion: ScrollMotion(),
+                  children: [
+                    SlidableAction(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                      icon: Icons.delete,
+                      // TODO 8
+                      onPressed: null,
+                      label: 'Delete',
+                    ),
+                  ],
+                ),
+                child: Card(
+                  elevation: 1.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  color: Colors.white,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        leading: CachedNetworkImage(
+                            // TODO 5
+                            imageUrl:
+                                'http://www.seriouseats.com/recipes/2011/12/chicken-vesuvio-recipe.html',
+                            height: 120,
+                            width: 60,
+                            fit: BoxFit.cover),
+                        // TODO 6
+                        title: const Text('Chicken Vesuvio'),
+                      ),
                     ),
                   ),
-                ),
-              ),
-
-              startActionPane: ActionPane(
-                motion: const ScrollMotion(),
-                dismissible: DismissiblePane(onDismissed: () {}),
-                children: [
-                  SlidableAction(
-                    // TODO 7
-                    onPressed: (context) {},
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                    icon: Icons.delete,
-                    label: 'Delete',
-                  ),
-                ],
-              ),
-
-              endActionPane: ActionPane(
-                motion: const ScrollMotion(),
-                children: [
-                  SlidableAction(
-                    // An action can be bigger than the others.
-                    flex: 2,
-                    // TODO 8
-                    onPressed: (context) {},
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                    icon: Icons.archive,
-                    label: 'Delete',
-                  ),
-                ],
-              ),
-            ),
+                )),
           );
         });
     // TODO 9

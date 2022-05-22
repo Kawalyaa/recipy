@@ -1,12 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'recipe_model.g.dart';
 
 @JsonSerializable()
 class APIRecipeQuery {
   factory APIRecipeQuery.fromJson(Map<String, dynamic> json) =>
       _$APIRecipeQueryFromJson(json);
-  Map<String, dynamic> toJson() => _$APIRecipeQueryToJson(this);
 
+  Map<String, dynamic> toJson() => _$APIRecipeQueryToJson(this);
   @JsonKey(name: 'q')
   String query;
   int from;
@@ -28,9 +29,14 @@ class APIRecipeQuery {
 @JsonSerializable()
 class APIHits {
   APIRecipe recipe;
-  APIHits({required this.recipe});
+
+  APIHits({
+    required this.recipe,
+  });
+
   factory APIHits.fromJson(Map<String, dynamic> json) =>
       _$APIHitsFromJson(json);
+
   Map<String, dynamic> toJson() => _$APIHitsToJson(this);
 }
 
@@ -56,6 +62,7 @@ class APIRecipe {
 
   factory APIRecipe.fromJson(Map<String, dynamic> json) =>
       _$APIRecipeFromJson(json);
+
   Map<String, dynamic> toJson() => _$APIRecipeToJson(this);
 }
 
@@ -75,7 +82,6 @@ String getWeight(double? weight) {
 
 @JsonSerializable()
 class APIIngredients {
-// 1
   @JsonKey(name: 'text')
   String name;
   double weight;

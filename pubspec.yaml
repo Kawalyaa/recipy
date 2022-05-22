@@ -22,9 +22,12 @@ dependencies:
   url_launcher: ^6.0.20
   shared_preferences: ^2.0.13
   cached_network_image: ^3.2.0
-  flutter_slidable: ^1.2.0
+  flutter_slidable: ^1.2.1
   flutter_svg: ^1.0.3
   json_annotation: ^4.5.0
+  http: ^0.13.4
+
+
 
 
 

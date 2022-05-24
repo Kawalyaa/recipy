@@ -37,56 +37,57 @@ class _MyRecipesListState extends State<MyRecipesList> {
           return SizedBox(
             height: 100,
             child: Slidable(
-                startActionPane: const ActionPane(
-                  motion: ScrollMotion(),
-                  children: [
-                    SlidableAction(
-                      backgroundColor: Colors.red,
-                      foregroundColor: Colors.white,
-                      icon: Icons.delete,
-                      // TODO 7
-                      onPressed: null,
-                      label: 'Delete',
-                    ),
-                  ],
+              child: Card(
+                elevation: 1.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
-                endActionPane: const ActionPane(
-                  motion: ScrollMotion(),
-                  children: [
-                    SlidableAction(
-                      backgroundColor: Colors.red,
-                      foregroundColor: Colors.white,
-                      icon: Icons.delete,
-                      // TODO 8
-                      onPressed: null,
-                      label: 'Delete',
-                    ),
-                  ],
-                ),
-                child: Card(
-                  elevation: 1.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  color: Colors.white,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        leading: CachedNetworkImage(
-                            // TODO 5
-                            imageUrl:
-                                'http://www.seriouseats.com/recipes/2011/12/chicken-vesuvio-recipe.html',
-                            height: 120,
-                            width: 60,
-                            fit: BoxFit.cover),
-                        // TODO 6
-                        title: const Text('Chicken Vesuvio'),
-                      ),
+                color: Colors.white,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      leading: CachedNetworkImage(
+                          // TODO 5
+                          imageUrl:
+                              'http://www.seriouseats.com/recipes/2011/12/chicken-vesuvio-recipe.html',
+                          height: 120,
+                          width: 60,
+                          fit: BoxFit.cover),
+                      // TODO 6
+                      title: const Text('Chicken Vesuvio'),
                     ),
                   ),
-                )),
+                ),
+              ),
+              startActionPane: const ActionPane(
+                motion: ScrollMotion(),
+                children: [
+                  SlidableAction(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete,
+                    // TODO 7
+                    onPressed: null,
+                    label: 'Delete',
+                  ),
+                ],
+              ),
+              endActionPane: const ActionPane(
+                motion: ScrollMotion(),
+                children: [
+                  SlidableAction(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete,
+                    // TODO 8
+                    onPressed: null,
+                    label: 'Delete',
+                  ),
+                ],
+              ),
+            ),
           );
         });
     // TODO 9

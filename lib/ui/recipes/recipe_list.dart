@@ -2,14 +2,16 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import '../../network/recipe_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../colors.dart';
-import '../recipe_card.dart';
 import '../widgets/custom_dropdown.dart';
-import 'recipe_details.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../network/recipe_model.dart';
 import '../../network/recipe_service.dart';
+import '../recipe_card.dart';
+import '../recipes/recipe_details.dart';
+import '../colors.dart';
+import 'package:chopper/chopper.dart';
+import '../../network/model_response.dart';
 
 class RecipeList extends StatefulWidget {
   const RecipeList({Key? key}) : super(key: key);
@@ -23,7 +25,6 @@ class _RecipeListState extends State<RecipeList> {
 
   late TextEditingController searchTextController;
   final ScrollController _scrollController = ScrollController();
-
   List<APIHits> currentSearchList = [];
   int currentCount = 0;
   int currentStartPosition = 0;
@@ -38,6 +39,7 @@ class _RecipeListState extends State<RecipeList> {
   void initState() {
     super.initState();
     getPreviousSearches();
+
     searchTextController = TextEditingController(text: '');
     _scrollController.addListener(() {
       final triggerFetchMoreSize =
@@ -57,12 +59,6 @@ class _RecipeListState extends State<RecipeList> {
         }
       }
     });
-  }
-
-  Future<APIRecipeQuery> getRecipeData(String query, int from, int to) async {
-    final recipeJson = await RecipeServices().getRecipes(query, from, to);
-    final recipeMap = json.decode(recipeJson);
-    return APIRecipeQuery.fromJson(recipeMap);
   }
 
   @override
@@ -196,9 +192,11 @@ class _RecipeListState extends State<RecipeList> {
     if (searchTextController.text.length < 3) {
       return Container();
     }
-    return FutureBuilder<APIRecipeQuery>(
-      future: getRecipeData(searchTextController.text.trim(),
-          currentStartPosition, currentEndPosition),
+    return FutureBuilder<Response<Result<APIRecipeQuery>>>(
+      future: RecipeService.create().queryRecipes(
+          searchTextController.text.trim(),
+          currentStartPosition,
+          currentEndPosition),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
@@ -212,7 +210,13 @@ class _RecipeListState extends State<RecipeList> {
           }
 
           loading = false;
-          final query = snapshot.data;
+          final result = snapshot.data?.body;
+          if (result is Error) {
+            // Hit an error
+            inErrorState = true;
+            return _buildRecipeList(context, currentSearchList);
+          }
+          final query = (result as Success).value;
           inErrorState = false;
           if (query != null) {
             currentCount = query.count;
@@ -241,7 +245,6 @@ class _RecipeListState extends State<RecipeList> {
     final size = MediaQuery.of(context).size;
     const itemHeight = 310;
     final itemWidth = size.width / 2;
-
     return Flexible(
       child: GridView.builder(
         controller: _scrollController,
